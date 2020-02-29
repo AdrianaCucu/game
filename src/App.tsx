@@ -2,12 +2,14 @@ import React from 'react';
 import './App.css';
 
 import Map from './components/Map';
+import Hud from './components/Hud';
 
 function App() {
   return (
     <div className="App">
-      Sup nerds
+      Big Foil
       <Map />
+      <Hud />
     </div>
   );
 }

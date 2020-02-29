@@ -19,7 +19,7 @@ const Hud = () => {
   console.log("re-render");
 
   const startGame = () => {
-    setGlobalTemperature(25.0);
+    // setGlobalTemperature(25.0);
   }
 
   return (

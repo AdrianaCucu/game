@@ -20,7 +20,26 @@ const Map = () => {
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map(geo => (
-                <Geography key={geo.rsmKey} geography={geo} />
+                <Geography key={geo.rsmKey} geography={geo} style={{
+                    default: {
+                      fill: "#ECEFF1",
+                      stroke: "#607D8B",
+                      strokeWidth: 0.75,
+                      outline: "none"
+                    },
+                    hover: {
+                      fill: "#CFD8DC",
+                      stroke: "#607D8B",
+                      strokeWidth: 1,
+                      outline: "none"
+                    },
+                    pressed: {
+                      fill: "#FF5722",
+                      stroke: "#607D8B",
+                      strokeWidth: 1,
+                      outline: "none"
+                    }
+                  }} />
               ))
             }
           </Geographies>

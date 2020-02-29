@@ -11,21 +11,26 @@ const StyledMap = styled.div`
 `;
 
 const Map = () => {
-  console.log("hello");
+  // console.log("hello");
+
+  let handleClick = (geo: any) => () => {
+    console.log(geo.properties.continent);
+  };
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <StyledMap>
         <ComposableMap>
           <Geographies geography={geoUrl}>
-            {({ geographies }) => {
-              return geographies.map(geo => (
+            {({ geographies }) =>
+              geographies.map(geo => (
                 <Geography
                   key={geo.rsmKey}
+                  onClick={handleClick(geo)}
                   geography={geo}
                   style={{
                     default: {
-                      fill: "#ECEFF1",
+                      fill: "green",
                       stroke: "#607D8B",
                       strokeWidth: 0.75,
                       outline: "none"
@@ -37,15 +42,15 @@ const Map = () => {
                       outline: "none"
                     },
                     pressed: {
-                      fill: "#FF5722",
+                      fill: "grey",
                       stroke: "#607D8B",
                       strokeWidth: 1,
                       outline: "none"
                     }
                   }}
                 />
-              ));
-            }}
+              ))
+            }
           </Geographies>
         </ComposableMap>
       </StyledMap>

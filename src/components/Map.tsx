@@ -14,13 +14,16 @@ const Map = () => {
   console.log("hello");
 
   return (
-    <div style={{display: "flex", justifyContent: "center"}}>
+    <div style={{ display: "flex", justifyContent: "center" }}>
       <StyledMap>
         <ComposableMap>
           <Geographies geography={geoUrl}>
-            {({ geographies }) =>
-              geographies.map(geo => (
-                <Geography key={geo.rsmKey} geography={geo} style={{
+            {({ geographies }) => {
+              return geographies.map(geo => (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  style={{
                     default: {
                       fill: "#ECEFF1",
                       stroke: "#607D8B",
@@ -39,9 +42,10 @@ const Map = () => {
                       strokeWidth: 1,
                       outline: "none"
                     }
-                  }} />
-              ))
-            }
+                  }}
+                />
+              ));
+            }}
           </Geographies>
         </ComposableMap>
       </StyledMap>

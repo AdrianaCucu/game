@@ -15,9 +15,14 @@ export abstract class Scenario {
     publicOpinion: number,
     money: number
   ) {
-    const [newState, newTemp, newOpinion, newMoney] = this.states[
-      this.currentState
-    ].update(timeElapsed, globalTemperature, publicOpinion, money);
+    const state = this.states[this.currentState];
+    const [newState, newTemp, newOpinion, newMoney] = state.update(
+      timeElapsed,
+      globalTemperature,
+      publicOpinion,
+      money
+    );
+
     this.currentState = newState;
     return [newTemp, newOpinion, newMoney];
   }

@@ -4,6 +4,7 @@ import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps
 
 import './App.css';
 
+import { Marker as CustomMarker } from './utils/types';
 import { useInterval } from './hooks/useInterval';
 import { useGameState } from './hooks/useGameState';
 import { useScenarios } from './hooks/useScenarios';
@@ -13,7 +14,7 @@ import { Scenario } from './scenarios/Scenario';
 import { europe, asia, oceania, nAmerica, africa, sAmerica } from './models/Continent';
 
 import Win from './components/Win';
-import { getRandomInt } from './utils';
+import { tempToColor, getRandomInt } from './utils/utils';
 
 const geoUrl =
   "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json";
@@ -22,52 +23,6 @@ const StyledMap = styled.div`
   width: 70%;
   height: auto;
 `;
-
-interface ContinentTemps {
-  [key: string]: number;
-}
-
-const COLORS = {
-  darkBlue: "#2e86de",
-  lightBlue: "#48dbfb",
-  lightOrange: "#feca57",
-  orange: "#ff9f43",
-  lightRed: "#ff6b6b",
-  red: "#ee5253",
-  darkRed: "#b33939",
-  gray: "gray"
-}
-
-function tempToColor(continentTemps: ContinentTemps, continent: string): String {
-  if (continentTemps[continent] != null) {
-    const temp = continentTemps[continent];
-
-    if (temp <= 0.0) {
-      return COLORS.darkBlue;
-    } else if (temp > 0 && temp <= 0.6) {
-      return COLORS.lightBlue;
-    } else if (temp > 0.6 && temp <= 1.0) {
-      return COLORS.lightOrange;
-    } else if (temp > 1.0 && temp <= 1.4) {
-      return COLORS.orange;
-    } else if (temp > 1.4 && temp <= 1.8) {
-      return COLORS.lightRed;
-    } else if (temp > 1.8 && temp <= 2.4) {
-      return COLORS.red;
-    } else if (temp > 2.4 && temp <= 3.0) {
-      return COLORS.darkRed;
-    } else {
-      return COLORS.gray;
-    }
-  }
-  return COLORS.gray;
-}
-
-interface Marker {
-  markerOffset: number;
-  name: String;
-  coordinates: [number, number]
-};
 
 let TICK_INTERVAL: number | null = null; // 100 milliseconds
 
@@ -154,7 +109,7 @@ function App() {
   let possibleScenarios = [new CoalPowerStation(), new Deforestation()];
   let scenario: Scenario = possibleScenarios[selectedScenario];
 
-  let markers: Array<Marker> = [
+  let markers: Array<CustomMarker> = [
     {
       markerOffset: -30,
       name: scenario ? scenario.name : "",

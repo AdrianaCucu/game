@@ -50,7 +50,7 @@ function App() {
   }
 
   function createButton() {
-    console.log(scenarios)
+    // console.log(scenarios)
     setTiming(timing => timing === 49 ? timing = 0 : timing + 1);
   }
 

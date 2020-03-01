@@ -24,7 +24,7 @@ export class CoalPowerStation extends Scenario {
   protected states: State[] = [
     new State(
       0, // this state has an ID of 0
-      50, // this state should update every 5 seconds
+      5, // this state should update every 5 seconds
       0.01, // increase the temperature by 0.01 on each update
       0.02, // increase the public opinion by 0.02 on each update
       208, // increase the money by 208 on each update
@@ -33,7 +33,7 @@ export class CoalPowerStation extends Scenario {
     ),
     new State(
       1, // this state has an ID of 0
-      50, // this state should update every 5 seconds
+      5, // this state should update every 5 seconds
       0.02, // increase the temperature by 0.02 on each update
       0.04, // increase the public opinion by 0.04 on each update
       416, // increase the money by 416 on each update

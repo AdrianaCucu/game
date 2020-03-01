@@ -9,6 +9,7 @@ import { useGameState } from './hooks/useGameState';
 import { useScenarios } from './hooks/useScenarios';
 import { CoalPowerStation } from './scenarios/CoalPowerStation';
 import { Scenario } from './scenarios/Scenario';
+import { europe, asia, oceania, nAmerica, africa } from './models/Continent';
 
 import Win from './components/Win';
 
@@ -137,11 +138,111 @@ function App() {
   // Should have the computer randomly choose between scenarios.
   let scenario: Scenario = new CoalPowerStation();
 
-  let markers: Array<Marker> = [{
+  let markers: Array<Marker> = [
+    // {
+    //   markerOffset: -30,
+    //   name: scenario ? scenario.name : "",
+    //   coordinates: [10, 10]
+    // },
+    // {
+    //   markerOffset: -30,
+    //   name: scenario ? scenario.name : "",
+    //   coordinates: [520, -80]
+    // },
+  ];
+
+  let coordinates = europe.getRandomMarker();
+  // markers.push({
+  //   markerOffset: -30,
+  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+  //   coordinates
+  // });
+  // coordinates = europe.getRandomMarker();
+  // markers.push({
+  //   markerOffset: -30,
+  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+  //   coordinates
+  // });
+  // coordinates = europe.getRandomMarker();
+  // markers.push({
+  //   markerOffset: -30,
+  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+  //   coordinates
+  // });
+  // coordinates = asia.getRandomMarker();
+  // markers.push({
+  //   markerOffset: -30,
+  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+  //   coordinates
+  // });
+  // coordinates = asia.getRandomMarker();
+  // markers.push({
+  //   markerOffset: -30,
+  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+  //   coordinates
+  // });
+  // coordinates = africa.getRandomMarker();
+  // markers.push({
+  //   markerOffset: -30,
+  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+  //   coordinates
+  // });
+  // coordinates = africa.getRandomMarker();
+  // markers.push({
+  //   markerOffset: -30,
+  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+  //   coordinates
+  // });
+  coordinates = oceania.getRandomMarker();
+  markers.push({
     markerOffset: -30,
-    name: scenario ? scenario.name : "",
-    coordinates: [10, 10]
-  }];
+    name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+    coordinates
+  });
+  coordinates = oceania.getRandomMarker();
+  markers.push({
+    markerOffset: -30,
+    name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+    coordinates
+  });
+  // coordinates = nAmerica.getRandomMarker();
+  // markers.push({
+  //   markerOffset: -30,
+  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+  //   coordinates
+  // });
+  // coordinates = nAmerica.getRandomMarker();
+  // markers.push({
+  //   markerOffset: -30,
+  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+  //   coordinates
+  // });
+
+
+  // for (let x = 0; x < 180; x += 30) {
+  // for (let y = 0; y < 80; y += 15) {
+  //   markers.push({
+  //     markerOffset: -25,
+  //     name: `${x},${y}`,
+  //     coordinates: [x, y]
+  //   })
+  //   markers.push({
+  //     markerOffset: -25,
+  //     name: `-${x},-${y}`,
+  //     coordinates: [x * -1, y * -1]
+  //   })
+  //   markers.push({
+  //     markerOffset: -25,
+  //     name: `${x},-${y}`,
+  //     coordinates: [x, y * -1]
+  //   })
+  //   markers.push({
+  //     markerOffset: -25,
+  //     name: `-${x},${y}`,
+  //     coordinates: [x * -1, y]
+  //   })
+  // }
+  // }
 
   function createScenario() {
     setScenarios((scenarios: Scenario[]) => [...scenarios, scenario]);
@@ -188,7 +289,7 @@ function App() {
               }
             </Geographies>
 
-            {(timing > 20) ?
+            {(timing === 0) ?
               markers.map(({ name, coordinates, markerOffset }) => (
                 <Marker onClick={createScenario} coordinates={coordinates}>
                   <g

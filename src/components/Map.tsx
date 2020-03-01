@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 
 const geoUrl =
   "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json";
@@ -10,7 +10,20 @@ const StyledMap = styled.div`
   height: auto;
 `;
 
-const Map = () => {
+interface Marker {
+  markerOffset: number;
+  name: String;
+  coordinates: [number, number]
+};
+
+
+let markers: Array<Marker> = [{
+  markerOffset: -30,
+  name: "Buenos Aires",
+  coordinates: [-58.3816, -34.6037]
+}];
+
+const Map = ({displayMarker}: {displayMarker: boolean}) => {
   // console.log("hello");
 
   let handleClick = (geo: any) => () => {
@@ -36,15 +49,15 @@ const Map = () => {
                       outline: "none"
                     },
                     hover: {
-                      fill: "#CFD8DC",
-                      stroke: "#607D8B",
-                      strokeWidth: 1,
+                      fill: "green",
+                      stroke: "black",
+                      strokeWidth: 1.25,
                       outline: "none"
                     },
                     pressed: {
-                      fill: "grey",
-                      stroke: "#607D8B",
-                      strokeWidth: 1,
+                      fill: "green",
+                      stroke: "black",
+                      strokeWidth: 1.25,
                       outline: "none"
                     }
                   }}
@@ -52,6 +65,31 @@ const Map = () => {
               ))
             }
           </Geographies>
+
+          {(displayMarker === true) ?
+            markers.map(({ name, coordinates, markerOffset }) => (
+              <Marker coordinates={coordinates}>
+                <g
+                  fill="red"
+                  stroke="black"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+                <text
+                  textAnchor="middle"
+                  y={markerOffset}
+                  style={{ fontFamily: "system-ui", fill: "black", color: "black" }}
+                >
+                  {name}
+                </text>
+              </Marker>
+            ))
+            : ""}
         </ComposableMap>
       </StyledMap>
     </div>

@@ -4,6 +4,7 @@ import './App.css';
 import Map from './components/Map';
 import { useInterval } from './hooks/useInterval';
 import { useGameState } from './hooks/useGameState';
+import { useScenarios } from './hooks/useScenarios'
 import { CoalPowerStation } from './scenarios/CoalPowerStation';
 import { Scenario } from './scenarios/Scenario';
 
@@ -21,6 +22,8 @@ function App() {
     setPublicOpinion
   ] = useGameState();
 
+  const [scenarios, setScenarios, timing, setTiming] = useScenarios();
+
   console.log("re-render");
 
   const startGame = () => {
@@ -29,6 +32,8 @@ function App() {
     setMoney(1000000.0);
     setGlobalTemperature(25.0);
     setPublicOpinion(0.0);
+    setScenarios([]);
+    setTiming(0);
 
     console.log(money);
   };
@@ -43,21 +48,23 @@ function App() {
     setGlobalTemperature(globalTemperature => globalTemperature + 0.1);
     setMoney(money => money + 100);
     setPublicOpinion(0);
+    createButton();
   }
 
-  let scenarios: Array<Scenario> = [];
+  function createButton() {
+    setTiming(timing => timing === 49 ? timing = 0 : timing + 1);
+  }
 
   function createScenario() {
     const scenario = new CoalPowerStation();
-    scenarios = [...scenarios, scenario];
-    console.log(scenarios)
+    setScenarios((scenarios: Scenario[]) => [...scenarios, scenario]);
+    console.log(scenarios);
   }
 
   return (
     <div className="App">
       Big Foil
-      <Map />
-      <button onClick={createScenario}>create coal bois</button>
+      <Map displayMarker={(timing > 20) ? true : false} />
       <div>
         Your resources:
         <ul>

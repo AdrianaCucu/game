@@ -4,6 +4,8 @@ import './App.css';
 import Map from './components/Map';
 import { useInterval } from './hooks/useInterval';
 import { useGameState } from './hooks/useGameState';
+import { CoalPowerStation } from './scenarios/CoalPowerStation';
+import { Scenario } from './scenarios/Scenario';
 
 let TICK_INTERVAL: number | null = null; // 100 milliseconds
 
@@ -43,11 +45,29 @@ function App() {
     setPublicOpinion(0);
   }
 
+  let scenarios: Array<Scenario> = [];
+
+  function createScenario() {
+    const scenario = new CoalPowerStation();
+    scenarios = [...scenarios, scenario];
+    console.log(scenarios)
+  }
+
   return (
     <div className="App">
       Big Foil
       <Map />
-      <button onClick={createScenario}>start</button>
+      <button onClick={createScenario}>create coal bois</button>
+      <div>
+        Your resources:
+        <ul>
+          {scenarios.map((scenario: Scenario) =>
+            <li>
+              {scenario.name}
+            </li>
+          )}
+        </ul>
+      </div>
       <span>Moneys: {money}</span>
       <div>{`Date: ${timeElapsed}`}</div>
       <div>{`Temperature: ${globalTemperature}`}</div>

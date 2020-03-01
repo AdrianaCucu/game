@@ -8,10 +8,12 @@ import { useInterval } from './hooks/useInterval';
 import { useGameState } from './hooks/useGameState';
 import { useScenarios } from './hooks/useScenarios';
 import { CoalPowerStation } from './scenarios/CoalPowerStation';
+import { Deforestation } from './scenarios/Deforestation';
 import { Scenario } from './scenarios/Scenario';
 import { europe, asia, oceania, nAmerica, africa, sAmerica } from './models/Continent';
 
 import Win from './components/Win';
+import { getRandomInt } from './utils';
 
 const geoUrl =
   "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json";
@@ -81,7 +83,14 @@ function App() {
     setPublicOpinion
   ] = useGameState();
 
-  const [scenarios, setScenarios, timing, setTiming] = useScenarios();
+  const [
+    scenarios, 
+    setScenarios, 
+    timing, 
+    setTiming, 
+    selectedScenario,
+    setSelectedScenario
+  ] = useScenarios();
 
   console.log("re-render");
 
@@ -120,12 +129,16 @@ function App() {
     setMoney(money => money + moneyChange);
     setPublicOpinion(publicOpinion => publicOpinion + publicOpinionChange);
 
-    if (globalTemperature >= 100) TICK_INTERVAL = null;
+    if (globalTemperature >= 100) TICK_INTERVAL = 999999999;
   }
 
   function createButton() {
     console.log(scenarios)
-    setTiming(timing => timing === 49 ? timing = 0 : timing + 1);
+    setTiming(timing => timing === 59 ? timing = 0 : timing + 1);
+    if (timing === 40) {
+      let index = getRandomInt(0, 1);
+      setSelectedScenario(index);
+    }
   }
 
   const continentTemps = {
@@ -137,8 +150,9 @@ function App() {
     "North America": 2.4,
   }
 
-  // Should have the computer randomly choose between scenarios.
-  let scenario: Scenario = new CoalPowerStation();
+  // Randomly choose between scenarios.
+  let possibleScenarios = [new CoalPowerStation(), new Deforestation()];
+  let scenario: Scenario = possibleScenarios[selectedScenario];
 
   let markers: Array<Marker> = [
     {
@@ -193,7 +207,7 @@ function App() {
               }
             </Geographies>
 
-            {(timing === 0) ?
+            {(timing > 40) ?
               markers.map(({ name, coordinates, markerOffset }) => (
                 <Marker onClick={createScenario} coordinates={coordinates}>
                   <g

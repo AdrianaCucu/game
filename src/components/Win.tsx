@@ -12,7 +12,6 @@ const StyledWin = styled.div`
     background: #222f3e;
     opacity: 0.9;
     display: flex;
-    align-items: center;
     justify-content: center;
     transition: 1s;
     transition-timing-function: ease-in;

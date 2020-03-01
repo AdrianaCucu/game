@@ -14,7 +14,7 @@ export class Deforestation extends Scenario {
     0.9,
     0.2
   ];
-  public static cost: number = 100000;
+  public cost: number = 100000;
   protected startingState: number = 0; // the state we should start on
 
   protected currentState: number; // the current state the power station is in

@@ -14,7 +14,7 @@ export class Bribe extends Scenario {
     0.5,
     0.5
   ];
-  public static cost: number = 500000;
+  public cost: number = 500000;
   protected startingState: number = 0; // the state we should start on
 
   protected currentState: number; // the current state the power station is in

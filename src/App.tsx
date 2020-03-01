@@ -44,7 +44,9 @@ function App() {
     timing,
     setTiming,
     selectedScenario,
-    setSelectedScenario
+    setSelectedScenario,
+    selectedContinent,
+    setSelectedContinent
   ] = useScenarios();
 
   console.log("re-render");
@@ -100,6 +102,7 @@ function App() {
     if (timing === 40) {
       let index = getRandomInt(0, 1);
       setSelectedScenario(index);
+      setSelectedContinent(Continent.getRandom());
     }
   }
 
@@ -112,9 +115,8 @@ function App() {
     "North America": 2.4,
   }
 
-  // Randomly choose between scenarios for a country
-  const markerContinent = Continent.getRandom();
-  const possibleScenarios = getAllScenarios(markerContinent);
+  // Randomly choose between scenarios for a continent
+  const possibleScenarios = getAllScenarios(selectedContinent);
   let scenario: Scenario = possibleScenarios[selectedScenario];
 
   console.log(scenario)

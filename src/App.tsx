@@ -151,7 +151,7 @@ function App() {
 
             {(timing === 0) ?
               markers.map(({ name, coordinates, markerOffset }) => (
-                <Marker onClick={createScenario} coordinates={coordinates}>
+                <Marker onMouseDown={createScenario} coordinates={coordinates}>
                   <g
                     fill="red"
                     stroke="black"

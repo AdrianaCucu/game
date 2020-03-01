@@ -108,11 +108,12 @@ function App() {
   function createButton() {
     setTiming(timing => timing === 59 ? timing = 0 : timing + 1);
     if (timing === 40) {
-      let index = getRandomInt(0, 1);
+      let index = getRandomInt(0, 2);
       setSelectedScenario(index);
       setSelectedContinent(Continent.getRandom());
     }
   }
+  
 
   // Randomly choose between scenarios for a continent
   const possibleScenarios = getAllScenarios(selectedContinent);
@@ -127,6 +128,7 @@ function App() {
   ];
 
   function createScenario() {
+    setMoney(money => money - scenario.cost);
     setScenarios((scenarios: Scenario[]) => [...scenarios, scenario]);
     setTiming(0);
   }

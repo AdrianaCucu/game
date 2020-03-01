@@ -15,7 +15,7 @@ export class CoalPowerStation extends Scenario {
     0.6,
     0.3
   ];
-  public static cost: number = 250000;
+  public cost: number = 250000;
   protected startingState: number = 1; // the state we should start on
 
   protected currentState: number; // the current state the power station is in

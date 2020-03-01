@@ -89,7 +89,6 @@ function App() {
           )}
         </ul>
       </div>
-      <button onClick={createScenario}>moar coal</button>
       <span>Moneys: {money}</span>
       <div>{`Date: ${timeElapsed}`}</div>
       <div>{`Temperature: ${globalTemperature}`}</div>

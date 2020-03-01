@@ -9,9 +9,16 @@ export abstract class Scenario {
   protected abstract states: State[];
 
   // run the state update function
-  public update(timeElapsed: number, globalTemperature: number, publicOpinion: number, money: number) {
-    const [newState, newTemp, newOpinion, newMoney] = this.states[this.currentState].update(timeElapsed, globalTemperature, publicOpinion, money);
+  public update(
+    timeElapsed: number,
+    globalTemperature: number,
+    publicOpinion: number,
+    money: number
+  ) {
+    const [newState, newTemp, newOpinion, newMoney] = this.states[
+      this.currentState
+    ].update(timeElapsed, globalTemperature, publicOpinion, money);
     this.currentState = newState;
-    return [newTemp,newOpinion,newMoney];
+    return [newTemp, newOpinion, newMoney];
   }
 }

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { CoalPowerStation } from "../scenarios/CoalPowerStation";
 import { Scenario } from "../scenarios/Scenario";
 
 export const useScenarios = () => {

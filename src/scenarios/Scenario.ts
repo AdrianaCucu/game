@@ -1,7 +1,9 @@
 import { State } from "./State";
+import { Continent } from "../models/Continent";
 
 export abstract class Scenario {
   // public static creationProbabilities: number[] = [0.5, 0.5, 0.5, 0.5, 0.5];
+  public continent: Continent;
   public abstract name: string;
   protected abstract startingState: number;
 
@@ -25,5 +27,9 @@ export abstract class Scenario {
 
     this.currentState = newState;
     return [newTemp, newOpinion, newMoney];
+  }
+
+  constructor(continent: Continent) {
+    this.continent = continent;
   }
 }

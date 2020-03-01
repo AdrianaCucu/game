@@ -64,7 +64,7 @@ const Map = ({ continentTemps, displayMarker }: { continentTemps: ContinentTemps
 
   const [scenarios, setScenarios] = useScenarios();
 
-  let scenario: Scenario = new CoalPowerStation();
+  let scenario: Scenario | null = null;
 
   let markers: Array<Marker> = [{
     markerOffset: -30,

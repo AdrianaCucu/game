@@ -9,7 +9,7 @@ const StyledWin = styled.div`
     top: 0;
     position: fixed;
     z-index: 20;
-    background: white;
+    background: #222f3e;
     opacity: 0.9;
     display: flex;
     align-items: center;
@@ -30,7 +30,7 @@ const Win = ({ duration }: { duration: number }) => {
 
     return (
         <StyledWin>
-            <div style={{ background: "#222f3e", opacity: "2 !important", width: "50%", height: "50%" }}>
+            <div>
                 <p>You destroyed the world in {getDuration}</p>
                 <button className="button"  onClick={playAgain}>Play Again</button>
             </div>

@@ -67,8 +67,8 @@ function App() {
   }
 
   const continentTemps = {
-    "Europe": 0,
-    "Asia": 0.5,
+    "Europe": 2.5,
+    "Asia": 1.5,
     "Oceania": 1.0,
     "Africa": 1.4,
     "South America": 1.8,

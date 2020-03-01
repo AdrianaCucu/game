@@ -19,13 +19,13 @@ interface ContinentTemps {
 }
 
 const COLORS = {
-  darkBlue: "#124e89",
-  lightBlue: "#ADF3FF",
-  lightOrange: "#F29F81",
-  orange: "#FF8B42",
-  lightRed: "#be4a2f",
-  red: "#a22633",
-  darkRed: "#3e2731",
+  darkBlue: "#2e86de",
+  lightBlue: "#48dbfb",
+  lightOrange: "#feca57",
+  orange: "#ff9f43",
+  lightRed: "#ff6b6b",
+  red: "#ee5253",
+  darkRed: "#b33939",
   gray: "gray"
 }
 

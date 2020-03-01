@@ -53,10 +53,19 @@ function App() {
     console.log(scenarios)
   }
 
+  const continentTemps = {
+    "Europe": 0,
+    "Asia": 0.5,
+    "Oceania": 1.0,
+    "Africa": 1.4,
+    "South America": 1.8,
+    "North America": 2.4,
+  }
+
   return (
     <div className="App">
       Big Foil
-      <Map />
+      <Map continentTemps={continentTemps} />
       <button onClick={createScenario}>create coal bois</button>
       <div>
         Your resources:

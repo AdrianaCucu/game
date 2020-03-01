@@ -1,4 +1,4 @@
-import { State } from "./state";
+import { State } from "./State";
 
 export abstract class Scenario {
   // public static creationProbabilities: number[] = [0.5, 0.5, 0.5, 0.5, 0.5];

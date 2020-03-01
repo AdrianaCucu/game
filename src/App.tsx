@@ -119,6 +119,7 @@ function App() {
 
   function createScenario() {
     setScenarios((scenarios: Scenario[]) => [...scenarios, scenario]);
+    setTiming(0);
   }
 
   return (

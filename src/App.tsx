@@ -191,7 +191,7 @@ function App() {
       </div>
 
       {(timeElapsed === 0) ?
-        <button onClick={startGame}>Start Game</button> : ""
+        <button className="button" onClick={startGame}>Start Game</button> : ""
       }
 
       <div style={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>

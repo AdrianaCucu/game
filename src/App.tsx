@@ -47,6 +47,7 @@ function App() {
     <div className="App">
       Big Foil
       <Map />
+      <button onClick={createScenario}>start</button>
       <span>Moneys: {money}</span>
       <div>{`Date: ${timeElapsed}`}</div>
       <div>{`Temperature: ${globalTemperature}`}</div>

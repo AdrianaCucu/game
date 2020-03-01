@@ -45,7 +45,7 @@ function App() {
     TICK_INTERVAL = 100;
     setTimeElapsed(0.0);
     setMoney(1000000.0);
-    setGlobalTemperature(25.0);
+    setGlobalTemperature(0.0);
     setPublicOpinion(0.0);
     setTiming(0);
 
@@ -75,6 +75,8 @@ function App() {
     setGlobalTemperature(globalTemperature => globalTemperature + globalTempChange);
     setMoney(money => money + moneyChange);
     setPublicOpinion(publicOpinion => publicOpinion + publicOpinionChange);
+
+    if (globalTemperature >= 100) TICK_INTERVAL = null;
   }
 
   function createButton() {
@@ -173,10 +175,16 @@ function App() {
               : ""}
           </ComposableMap>
         </StyledMap>
+      </div>
 
-        <div>
+      {(timeElapsed === 0) ?
+        <button onClick={startGame}>Start Game</button> : ""
+      }
+
+      <div style={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>
+        <div style={{ width: "40vw" }}>
           Your resources:
-        <ul>
+          <ul>
             {scenarios.map((scenario: Scenario) =>
               <li>
                 {scenario.name}
@@ -184,27 +192,23 @@ function App() {
             )}
           </ul>
         </div>
+        <div style={{ width: "40vw" }}>
+          <span>Money: {money}</span>
+          <br />
+          <div>{`Date: ${timeElapsed}`}</div>
+          <br />
+          <div id="myProgress">
+            <div id="myBar" style={{ width: `${globalTemperature}%`, color: "black" }}>Progress: {globalTemperature.toFixed(2)}%</div>
+          </div>
+          <br />
+          <div id="opinion">
+            <div id="opinionBar" style={{ width: `${publicOpinion}%`, color: "black" }}>Public opinion: {publicOpinion.toFixed(2)}%</div>
+          </div>
+        </div>
       </div>
-
-      <div>
-        Your resources:
-        <ul>
-          {scenarios.map((scenario: Scenario) =>
-            <li>
-              {scenario.name}
-            </li>
-          )}
-        </ul>
-      </div>
-      <span>Moneys: {money}</span>
-      <div>{`Date: ${timeElapsed}`}</div>
-      <div>{`Temperature: ${globalTemperature}`}</div>
-      {(timeElapsed === 0) ?
-        <button onClick={startGame}>start</button> : ""
-      }
 
       {
-        false ? <Win duration={timeElapsed} /> : ""
+        globalTemperature >= 100 ? <Win duration={timeElapsed} /> : ""
       }
 
     </div>

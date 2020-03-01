@@ -99,7 +99,7 @@ function App() {
 
     let today = new Date(date);
     let next = new Date();
-    next.setDate(today.getDate()+1);
+    next.setTime(today.getTime() + 86400000);
     setDate(next.toString());
 
     if (globalTemperature >= 100) TICK_INTERVAL = 999999999;

@@ -23,7 +23,7 @@ export class Deforestation extends Scenario {
   protected states: State[] = [
     new State(
       0, // this state has an ID of 0
-      100, // this state should update every 10 seconds
+      10, // this state should update every 10 seconds
       0.1, // increase the temperature by 0.1 on each update
       0.03, // increase the public opinion by 0.03 on each update
       0, // no money earned from burning forests
@@ -32,7 +32,7 @@ export class Deforestation extends Scenario {
     ),
     new State(
       1, // this state has an ID of 1
-      100, // this state should update every 10 seconds
+      10, // this state should update every 10 seconds
       0.2, // increase the temperature by 0.2 on each update
       0.4, // increase the public opinion by 0.2 on each update
       -100, // lose money on an out-of-control fire
@@ -45,7 +45,7 @@ export class Deforestation extends Scenario {
     ),
     new State(
       2, // this state has an ID of 0
-      50, // this state should update every 5 seconds
+      5, // this state should update every 5 seconds
       0.04, // increase the temperature by 0.04 on each update
       0.01, // increase the public opinion by 0.01 on each update
       100, // increase the money by 100 on each update

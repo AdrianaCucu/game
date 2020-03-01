@@ -23,7 +23,7 @@ export class Bribe extends Scenario {
   protected states: State[] = [
     new State(
       0, // this state has an ID of 0
-      50, // this state should update every 5 seconds
+      5, // this state should update every 5 seconds
       0.05, // increase the temperature by 0.05 on each update
       -0.1, // decrease the public opinion by -0.1 on each update
       0, // no money earned from bribing
@@ -32,7 +32,7 @@ export class Bribe extends Scenario {
     ),
     new State(
       1, // this state has an ID of 1
-      50, // this state should update every 5 seconds
+      5, // this state should update every 5 seconds
       0, // getting caught doesn't change the problem
       -0.5, // decrease the public opinion by -0.5 on each update
       0, // no money lost if caught bribing
@@ -45,7 +45,7 @@ export class Bribe extends Scenario {
     ),
     new State(
       2, // this state has an ID of 0
-      50, // this state should update every 5 seconds
+      5, // this state should update every 5 seconds
       0, // no change in temperature
       0, // no change in public opinion
       0, // no change in money

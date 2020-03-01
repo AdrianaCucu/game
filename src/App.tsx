@@ -9,7 +9,7 @@ import { useGameState } from './hooks/useGameState';
 import { useScenarios } from './hooks/useScenarios';
 import { CoalPowerStation } from './scenarios/CoalPowerStation';
 import { Scenario } from './scenarios/Scenario';
-import { europe, asia, oceania, nAmerica, africa } from './models/Continent';
+import { europe, asia, oceania, nAmerica, africa, sAmerica } from './models/Continent';
 
 import Win from './components/Win';
 
@@ -151,98 +151,42 @@ function App() {
     // },
   ];
 
-  let coordinates = europe.getRandomMarker();
-  // markers.push({
-  //   markerOffset: -30,
-  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-  //   coordinates
-  // });
-  // coordinates = europe.getRandomMarker();
-  // markers.push({
-  //   markerOffset: -30,
-  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-  //   coordinates
-  // });
-  // coordinates = europe.getRandomMarker();
-  // markers.push({
-  //   markerOffset: -30,
-  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-  //   coordinates
-  // });
-  // coordinates = asia.getRandomMarker();
-  // markers.push({
-  //   markerOffset: -30,
-  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-  //   coordinates
-  // });
-  // coordinates = asia.getRandomMarker();
-  // markers.push({
-  //   markerOffset: -30,
-  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-  //   coordinates
-  // });
-  // coordinates = africa.getRandomMarker();
-  // markers.push({
-  //   markerOffset: -30,
-  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-  //   coordinates
-  // });
-  // coordinates = africa.getRandomMarker();
-  // markers.push({
-  //   markerOffset: -30,
-  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-  //   coordinates
-  // });
-  coordinates = oceania.getRandomMarker();
+  let coordinates = europe.coordinates;
   markers.push({
     markerOffset: -30,
     name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
     coordinates
   });
-  coordinates = oceania.getRandomMarker();
+  coordinates = asia.coordinates;
   markers.push({
     markerOffset: -30,
     name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
     coordinates
   });
-  // coordinates = nAmerica.getRandomMarker();
-  // markers.push({
-  //   markerOffset: -30,
-  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-  //   coordinates
-  // });
-  // coordinates = nAmerica.getRandomMarker();
-  // markers.push({
-  //   markerOffset: -30,
-  //   name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-  //   coordinates
-  // });
-
-
-  // for (let x = 0; x < 180; x += 30) {
-  // for (let y = 0; y < 80; y += 15) {
-  //   markers.push({
-  //     markerOffset: -25,
-  //     name: `${x},${y}`,
-  //     coordinates: [x, y]
-  //   })
-  //   markers.push({
-  //     markerOffset: -25,
-  //     name: `-${x},-${y}`,
-  //     coordinates: [x * -1, y * -1]
-  //   })
-  //   markers.push({
-  //     markerOffset: -25,
-  //     name: `${x},-${y}`,
-  //     coordinates: [x, y * -1]
-  //   })
-  //   markers.push({
-  //     markerOffset: -25,
-  //     name: `-${x},${y}`,
-  //     coordinates: [x * -1, y]
-  //   })
-  // }
-  // }
+  coordinates = africa.coordinates;
+  markers.push({
+    markerOffset: -30,
+    name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+    coordinates
+  });
+  coordinates = oceania.coordinates;
+  markers.push({
+    markerOffset: -30,
+    name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+    coordinates
+  });
+  coordinates = nAmerica.coordinates;
+  markers.push({
+    markerOffset: -30,
+    name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+    coordinates
+  });
+  coordinates = sAmerica.coordinates;
+  markers.push({
+    markerOffset: -30,
+    name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
+    coordinates
+  });
 
   function createScenario() {
     setScenarios((scenarios: Scenario[]) => [...scenarios, scenario]);

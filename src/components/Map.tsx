@@ -92,9 +92,9 @@ const Map = ({ continentTemps, displayMarker }: { displayMarker: boolean, contin
                         outline: "none"
                       },
                       hover: {
-                        fill: "green",
+                        fill: "gray",
                         stroke: "black",
-                        strokeWidth: 1.25,
+                        strokeWidth: 1.0,
                         outline: "none"
                       },
                       pressed: {

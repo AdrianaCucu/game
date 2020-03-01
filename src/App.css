@@ -39,31 +39,39 @@
 
 #myProgress,
 #opinion {
-  width: 100%;
+  width: 70px;
+  height: 50vh;
   background-color: white;
 }
 
+#myProgress{
+  margin-left: 100px;
+}
+
+#opinion{
+  margin-right: 100px;
+}
+
 #myBar {
-  height: 60px;
+  width: 70px;
   background-image: linear-gradient(
-    to right,
     #feca57,
     #ff9f43,
     #ff6b6b,
     #ee5253,
     #b33939
   );
-  max-width: 100%;
+  max-height: 100%;
 }
 
 #opinionBar {
-  height: 60px;
-  max-width: 100%;
-  background-image: linear-gradient(to right, green, yellow, red);
+  width: 70px;
+  max-height: 100%;
+  background-image: linear-gradient(green, yellow, red);
 }
 
 .button {
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   background-color: #b33939;
   border: none;
   color: white;
@@ -75,4 +83,6 @@
   cursor: pointer;
 }
 
-.button:hover { transform: scale(1.2); }
+.button:hover {
+  transform: scale(1.2);
+}

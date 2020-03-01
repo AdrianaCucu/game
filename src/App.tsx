@@ -13,7 +13,7 @@ import { Scenario } from './scenarios/Scenario';
 import { Continent } from './models/Continent';
 
 import Win from './components/Win';
-import { tempToColor, getRandomInt, getAllScenarios } from './utils/utils';
+import { tempToColor, getRandomInt, getAllScenarios, formatNumber } from './utils/utils';
 
 const geoUrl =
   "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json";
@@ -225,7 +225,7 @@ function App() {
           </ul>
         </div>
         <div style={{ width: "40vw" }}>
-          <span>Money: {money}</span>
+          <span>Money: ${formatNumber(money)}</span>
           <br />
           <div>{`Date: ${date}`}</div>
           <br />

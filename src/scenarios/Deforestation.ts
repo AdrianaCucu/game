@@ -3,7 +3,7 @@ import { Scenario } from "./Scenario";
 import { Continent } from "../models/Continent";
 
 export class Deforestation extends Scenario {
-  public name: string = "Deforestation";
+  public name: string = "Burn Forests";
 
   // EUROPE, ASIA, OCEANIA, AFRICA, SOUTH AMERICA, NORTH AMERICA
   public static creationProbabilities: number[] = [

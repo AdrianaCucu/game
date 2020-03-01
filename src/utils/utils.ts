@@ -5,6 +5,10 @@ import { CoalPowerStation } from "../scenarios/CoalPowerStation";
 import { Deforestation } from "../scenarios/Deforestation";
 import { Bribe } from "../scenarios/Bribe";
 
+export function formatNumber(num: number): String {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+
 export function getAllScenarios(continent: Continent) {
   return [
     new CoalPowerStation(continent),

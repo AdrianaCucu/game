@@ -10,6 +10,8 @@ import { useScenarios } from './hooks/useScenarios';
 import { CoalPowerStation } from './scenarios/CoalPowerStation';
 import { Scenario } from './scenarios/Scenario';
 
+import Win from './components/Win';
+
 const geoUrl =
   "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json";
 
@@ -241,8 +243,12 @@ function App() {
       {(timeElapsed === 0) ?
         <button onClick={startGame}>start</button> : ""
       }
-    </div>
 
+      {
+        false ? <Win duration={timeElapsed} /> : ""
+      }
+
+    </div>
   );
 }
 

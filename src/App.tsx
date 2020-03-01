@@ -8,13 +8,12 @@ import { Marker as CustomMarker } from './utils/types';
 import { useInterval } from './hooks/useInterval';
 import { useGameState } from './hooks/useGameState';
 import { useScenarios } from './hooks/useScenarios';
-import { CoalPowerStation } from './scenarios/CoalPowerStation';
-import { Deforestation } from './scenarios/Deforestation';
+import { useContinents } from './hooks/useContinents';
 import { Scenario } from './scenarios/Scenario';
-import { europe, asia, oceania, nAmerica, africa, sAmerica } from './models/Continent';
+import { Continent } from './models/Continent';
 
 import Win from './components/Win';
-import { tempToColor, getRandomInt } from './utils/utils';
+import { tempToColor, getRandomInt, getAllScenarios } from './utils/utils';
 
 const geoUrl =
   "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json";
@@ -38,14 +37,7 @@ function App() {
     setPublicOpinion
   ] = useGameState();
 
-  const [
-    scenarios, 
-    setScenarios, 
-    timing, 
-    setTiming, 
-    selectedScenario,
-    setSelectedScenario
-  ] = useScenarios();
+  const [temp, setContinentTemps] = useContinents();
 
   console.log("re-render");
 
@@ -56,6 +48,14 @@ function App() {
     setGlobalTemperature(0.0);
     setPublicOpinion(0.0);
     setTiming(0);
+    setContinentTemps({
+      europe: 0,
+      nAmerica: 0,
+      sAmerica: 0,
+      asia: 0,
+      oceania: 0,
+      africa: 0
+    })
 
     console.log(money);
   };
@@ -64,13 +64,20 @@ function App() {
     tick();
   }, TICK_INTERVAL || 999999999) // 11 days lol
 
+  const [
+    scenarios,
+    setScenarios,
+    timing,
+    setTiming,
+    selectedScenario,
+    setSelectedScenario
+  ] = useScenarios();
+
   /// Update the game state
   function tick() {
     setTimeElapsed(timeElapsed => timeElapsed + (TICK_INTERVAL || 0));
-    setGlobalTemperature(globalTemperature => globalTemperature + 0.1);
-    setMoney(money => money + 100);
-    setPublicOpinion(0);
     createButton();
+
     let globalTempChange = 0;
     let publicOpinionChange = 0;
     let moneyChange = 0;
@@ -80,6 +87,7 @@ function App() {
       publicOpinionChange += pubOpinion;
       moneyChange += tMoney;
     }
+
     setGlobalTemperature(globalTemperature => globalTemperature + globalTempChange);
     setMoney(money => money + moneyChange);
     setPublicOpinion(publicOpinion => publicOpinion + publicOpinionChange);
@@ -105,15 +113,18 @@ function App() {
     "North America": 2.4,
   }
 
-  // Randomly choose between scenarios.
-  let possibleScenarios = [new CoalPowerStation(), new Deforestation()];
+  // Randomly choose between scenarios for a country
+  const markerContinent = Continent.getRandom();
+  const possibleScenarios = getAllScenarios(markerContinent);
   let scenario: Scenario = possibleScenarios[selectedScenario];
+
+  console.log(scenario)
 
   let markers: Array<CustomMarker> = [
     {
       markerOffset: -30,
       name: scenario ? scenario.name : "",
-      coordinates: africa.coordinates
+      coordinates: scenario ? scenario.continent.coordinates : [0, 0]
     },
   ];
 

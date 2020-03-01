@@ -67,9 +67,9 @@ function App() {
   /// Update the game state
   function tick() {
     setTimeElapsed(timeElapsed => timeElapsed + (TICK_INTERVAL || 0));
-    setGlobalTemperature(globalTemperature => globalTemperature + 0.1);
-    setMoney(money => money + 100);
-    setPublicOpinion(0);
+    //setGlobalTemperature(globalTemperature => globalTemperature + 0.1);
+    //setMoney(money => money + 100);
+    //setPublicOpinion(0);
     createButton();
     let globalTempChange = 0;
     let publicOpinionChange = 0;

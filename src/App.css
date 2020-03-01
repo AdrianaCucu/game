@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+
+#myProgress,
+#opinion {
+  width: 100%;
+  background-color: white;
+}
+
+#myBar {
+  height: 60px;
+  background-image: linear-gradient(
+    to right,
+    #feca57,
+    #ff9f43,
+    #ff6b6b,
+    #ee5253,
+    #b33939
+  );
+  max-width: 100%;
+}
+
+#opinionBar {
+  height: 60px;
+  max-width: 100%;
+  background-image: linear-gradient(to right, green, yellow, red);
+}

@@ -4,13 +4,16 @@ import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps
 
 import './App.css';
 
+import { Marker as CustomMarker } from './utils/types';
 import { useInterval } from './hooks/useInterval';
 import { useGameState } from './hooks/useGameState';
 import { useScenarios } from './hooks/useScenarios';
 import { CoalPowerStation } from './scenarios/CoalPowerStation';
 import { Scenario } from './scenarios/Scenario';
+import { europe, asia, oceania, nAmerica, africa, sAmerica } from './models/Continent';
 
 import Win from './components/Win';
+import { tempToColor } from './utils/utils';
 
 const geoUrl =
   "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json";
@@ -19,52 +22,6 @@ const StyledMap = styled.div`
   width: 70%;
   height: auto;
 `;
-
-interface ContinentTemps {
-  [key: string]: number;
-}
-
-const COLORS = {
-  darkBlue: "#2e86de",
-  lightBlue: "#48dbfb",
-  lightOrange: "#feca57",
-  orange: "#ff9f43",
-  lightRed: "#ff6b6b",
-  red: "#ee5253",
-  darkRed: "#b33939",
-  gray: "gray"
-}
-
-function tempToColor(continentTemps: ContinentTemps, continent: string): String {
-  if (continentTemps[continent] != null) {
-    const temp = continentTemps[continent];
-
-    if (temp <= 0.0) {
-      return COLORS.darkBlue;
-    } else if (temp > 0 && temp <= 0.6) {
-      return COLORS.lightBlue;
-    } else if (temp > 0.6 && temp <= 1.0) {
-      return COLORS.lightOrange;
-    } else if (temp > 1.0 && temp <= 1.4) {
-      return COLORS.orange;
-    } else if (temp > 1.4 && temp <= 1.8) {
-      return COLORS.lightRed;
-    } else if (temp > 1.8 && temp <= 2.4) {
-      return COLORS.red;
-    } else if (temp > 2.4 && temp <= 3.0) {
-      return COLORS.darkRed;
-    } else {
-      return COLORS.gray;
-    }
-  }
-  return COLORS.gray;
-}
-
-interface Marker {
-  markerOffset: number;
-  name: String;
-  coordinates: [number, number]
-};
 
 let TICK_INTERVAL: number | null = null; // 100 milliseconds
 
@@ -88,7 +45,7 @@ function App() {
     TICK_INTERVAL = 100;
     setTimeElapsed(0.0);
     setMoney(1000000.0);
-    setGlobalTemperature(25.0);
+    setGlobalTemperature(0.0);
     setPublicOpinion(0.0);
     setTiming(0);
 
@@ -110,7 +67,7 @@ function App() {
     let publicOpinionChange = 0;
     let moneyChange = 0;
     for (let scenario of scenarios) {
-      const [globalTemp, pubOpinion, tMoney] = scenario.update(timeElapsed, globalTemperature, publicOpinion, money) ;
+      const [globalTemp, pubOpinion, tMoney] = scenario.update(timeElapsed, globalTemperature, publicOpinion, money);
       globalTempChange += globalTemp;
       publicOpinionChange += pubOpinion;
       moneyChange += tMoney;
@@ -118,6 +75,8 @@ function App() {
     setGlobalTemperature(globalTemperature => globalTemperature + globalTempChange);
     setMoney(money => money + moneyChange);
     setPublicOpinion(publicOpinion => publicOpinion + publicOpinionChange);
+
+    if (globalTemperature >= 100) TICK_INTERVAL = null;
   }
 
   function createButton() {
@@ -137,11 +96,13 @@ function App() {
   // Should have the computer randomly choose between scenarios.
   let scenario: Scenario = new CoalPowerStation();
 
-  let markers: Array<Marker> = [{
-    markerOffset: -30,
-    name: scenario ? scenario.name : "",
-    coordinates: [10, 10]
-  }];
+  let markers: Array<CustomMarker> = [
+    {
+      markerOffset: -30,
+      name: scenario ? scenario.name : "",
+      coordinates: africa.coordinates
+    },
+  ];
 
   function createScenario() {
     setScenarios((scenarios: Scenario[]) => [...scenarios, scenario]);
@@ -188,7 +149,7 @@ function App() {
               }
             </Geographies>
 
-            {(timing > 20) ?
+            {(timing === 0) ?
               markers.map(({ name, coordinates, markerOffset }) => (
                 <Marker onClick={createScenario} coordinates={coordinates}>
                   <g
@@ -214,10 +175,16 @@ function App() {
               : ""}
           </ComposableMap>
         </StyledMap>
+      </div>
 
-        <div>
+      {(timeElapsed === 0) ?
+        <button onClick={startGame}>Start Game</button> : ""
+      }
+
+      <div style={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>
+        <div style={{ width: "40vw" }}>
           Your resources:
-        <ul>
+          <ul>
             {scenarios.map((scenario: Scenario) =>
               <li>
                 {scenario.name}
@@ -225,27 +192,23 @@ function App() {
             )}
           </ul>
         </div>
+        <div style={{ width: "40vw" }}>
+          <span>Money: {money}</span>
+          <br />
+          <div>{`Date: ${timeElapsed}`}</div>
+          <br />
+          <div id="myProgress">
+            <div id="myBar" style={{ width: `${globalTemperature}%`, color: "black" }}>Progress: {globalTemperature.toFixed(2)}%</div>
+          </div>
+          <br />
+          <div id="opinion">
+            <div id="opinionBar" style={{ width: `${publicOpinion}%`, color: "black" }}>Public opinion: {publicOpinion.toFixed(2)}%</div>
+          </div>
+        </div>
       </div>
-
-      <div>
-        Your resources:
-        <ul>
-          {scenarios.map((scenario: Scenario) =>
-            <li>
-              {scenario.name}
-            </li>
-          )}
-        </ul>
-      </div>
-      <span>Moneys: {money}</span>
-      <div>{`Date: ${timeElapsed}`}</div>
-      <div>{`Temperature: ${globalTemperature}`}</div>
-      {(timeElapsed === 0) ?
-        <button onClick={startGame}>start</button> : ""
-      }
 
       {
-        false ? <Win duration={timeElapsed} /> : ""
+        globalTemperature >= 100 ? <Win duration={timeElapsed} /> : ""
       }
 
     </div>

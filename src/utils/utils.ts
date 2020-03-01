@@ -1,5 +1,17 @@
 import { ContinentTemps } from "./types";
 import { COLORS } from "./constants";
+import { Continent } from "../models/Continent";
+import { CoalPowerStation } from "../scenarios/CoalPowerStation";
+import { Deforestation } from "../scenarios/Deforestation";
+import { Bribe } from "../scenarios/Bribe";
+
+export function getAllScenarios(continent: Continent) {
+  return [
+    new CoalPowerStation(continent),
+    new Deforestation(continent),
+    new Bribe(continent)
+  ];
+}
 
 export function tempToColor(
   continentTemps: ContinentTemps,
@@ -35,7 +47,7 @@ export function timeElapsedToGameTime(milliseconds: number) {
 }
 
 /**
- * Get a random floating point number between `min` and `max`.
+ * Get a random floating point number between `min` and `max`. INCLUSIVELY.
  *
  * @param {number} min - min number
  * @param {number} max - max number
@@ -46,7 +58,7 @@ export function getRandomFloat(min: number, max: number): number {
 }
 
 /**
- * Get a random integer between `min` and `max`.
+ * Get a random integer between `min` and `max`. INCLUSIVELY.
  *
  * @param {number} min - min number
  * @param {number} max - max number

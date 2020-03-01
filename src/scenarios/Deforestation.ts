@@ -1,5 +1,6 @@
 import { State } from "./State";
 import { Scenario } from "./Scenario";
+import { Continent } from "../models/Continent";
 
 export class Deforestation extends Scenario {
   public name: string = "Deforestation";
@@ -66,8 +67,8 @@ export class Deforestation extends Scenario {
   }
 
   // ensure the current state is set to the starting state
-  constructor() {
-    super();
+  constructor(continent: Continent) {
+    super(continent);
     this.currentState = this.startingState;
   }
 }

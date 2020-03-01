@@ -69,13 +69,11 @@ const Map = ({ continentTemps, displayMarker }: { continentTemps: ContinentTemps
   let markers: Array<Marker> = [{
     markerOffset: -30,
     name: scenario ? scenario.name : "",
-    coordinates: [-58.3816, -34.6037]
+    coordinates: [10, 10]
   }];
 
   function createScenario() {
-    console.log(scenario)
     setScenarios((scenarios: Scenario[]) => [...scenarios, scenario]);
-    console.log(scenarios);
   }
 
   return (

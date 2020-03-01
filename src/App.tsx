@@ -139,54 +139,12 @@ function App() {
   let scenario: Scenario = new CoalPowerStation();
 
   let markers: Array<Marker> = [
-    // {
-    //   markerOffset: -30,
-    //   name: scenario ? scenario.name : "",
-    //   coordinates: [10, 10]
-    // },
-    // {
-    //   markerOffset: -30,
-    //   name: scenario ? scenario.name : "",
-    //   coordinates: [520, -80]
-    // },
+    {
+      markerOffset: -30,
+      name: scenario ? scenario.name : "",
+      coordinates: africa.coordinates
+    },
   ];
-
-  let coordinates = europe.coordinates;
-  markers.push({
-    markerOffset: -30,
-    name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-    coordinates
-  });
-  coordinates = asia.coordinates;
-  markers.push({
-    markerOffset: -30,
-    name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-    coordinates
-  });
-  coordinates = africa.coordinates;
-  markers.push({
-    markerOffset: -30,
-    name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-    coordinates
-  });
-  coordinates = oceania.coordinates;
-  markers.push({
-    markerOffset: -30,
-    name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-    coordinates
-  });
-  coordinates = nAmerica.coordinates;
-  markers.push({
-    markerOffset: -30,
-    name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-    coordinates
-  });
-  coordinates = sAmerica.coordinates;
-  markers.push({
-    markerOffset: -30,
-    name: `${Math.round(coordinates[0])},${Math.round(coordinates[1])}`,
-    coordinates
-  });
 
   function createScenario() {
     setScenarios((scenarios: Scenario[]) => [...scenarios, scenario]);

@@ -7,21 +7,13 @@ const StyledClock = styled.div``;
 const Hud = () => {
   const [
     timeElapsed,
-    setTimeElapsed,
     globalTemperature,
-    setGlobalTemperature,
     money,
-    setMoney,
     publicOpinion,
-    setPublicOpinion
   ] = useGameState();
 
-  console.log("re-render");
 
-  const startGame = () => {
-    // setGlobalTemperature(25.0);
-  }
-
+  console.log(`hud found money: ${money}`);
   return (
     <div>
       <div>hello world</div>

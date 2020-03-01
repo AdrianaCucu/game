@@ -20,7 +20,7 @@ const geoUrl =
   "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json";
 
 const StyledMap = styled.div`
-  width: 70%;
+  width: 50%;
   height: auto;
 `;
 
@@ -39,10 +39,10 @@ function App() {
   ] = useGameState();
 
   const [
-    scenarios, 
-    setScenarios, 
-    timing, 
-    setTiming, 
+    scenarios,
+    setScenarios,
+    timing,
+    setTiming,
     selectedScenario,
     setSelectedScenario
   ] = useScenarios();
@@ -125,6 +125,9 @@ function App() {
     <div className="App">
       Big Foil
       <div style={{ display: "flex", justifyContent: "center" }}>
+        <div id="opinion">
+          <div id="opinionBar" style={{ height: `${publicOpinion}%`, color: "black" }}>Public opinion: {publicOpinion.toFixed(2)}%</div>
+        </div>
         <StyledMap>
           <ComposableMap>
             <Geographies geography={geoUrl}>
@@ -188,6 +191,10 @@ function App() {
               : ""}
           </ComposableMap>
         </StyledMap>
+
+        <div id="myProgress">
+          <div id="myBar" style={{ height: `${globalTemperature}%`, color: "black" }}>Progress: {globalTemperature.toFixed(2)}%</div>
+        </div>
       </div>
 
       {(timeElapsed === 0) ?
@@ -210,13 +217,6 @@ function App() {
           <br />
           <div>{`Date: ${timeElapsed}`}</div>
           <br />
-          <div id="myProgress">
-            <div id="myBar" style={{ width: `${globalTemperature}%`, color: "black" }}>Progress: {globalTemperature.toFixed(2)}%</div>
-          </div>
-          <br />
-          <div id="opinion">
-            <div id="opinionBar" style={{ width: `${publicOpinion}%`, color: "black" }}>Public opinion: {publicOpinion.toFixed(2)}%</div>
-          </div>
         </div>
       </div>
 

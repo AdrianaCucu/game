@@ -49,6 +49,18 @@ function App() {
     setMoney(money => money + 100);
     setPublicOpinion(0);
     createButton();
+    let globalTempChange = 0;
+    let publicOpinionChange = 0;
+    let moneyChange = 0;
+    for (let scenario of scenarios) {
+      const [globalTemp, pubOpinion, tMoney] = scenario.update(timeElapsed, globalTemperature, publicOpinion, money) ;
+      globalTempChange += globalTemp;
+      publicOpinionChange += pubOpinion;
+      moneyChange += tMoney;
+    }
+    setGlobalTemperature(globalTemperature => globalTemperature + globalTempChange);
+    setMoney(money => money + moneyChange);
+    setPublicOpinion(publicOpinion => publicOpinion + publicOpinionChange);
   }
 
   function createButton() {
@@ -75,6 +87,7 @@ function App() {
           )}
         </ul>
       </div>
+      <button onClick={createScenario}>moar coal</button>
       <span>Moneys: {money}</span>
       <div>{`Date: ${timeElapsed}`}</div>
       <div>{`Temperature: ${globalTemperature}`}</div>

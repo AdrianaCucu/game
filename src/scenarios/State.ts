@@ -1,15 +1,4 @@
-import { useGameState } from './hooks/useGameState';
-
-const [
-  timeElapsed,
-  setTimeElapsed,
-  globalTemperature,
-  setGlobalTemperature,
-  money,
-  setMoney,
-  publicOpinion,
-  setPublicOpinion
-] = useGameState();
+import { useGameState } from '../hooks/useGameState';
 
 export class State {
   public id: number;
@@ -26,7 +15,9 @@ export class State {
               theUpdateTemp: number,
               theUpdateOpinion: number,
               theUpdateFunc: () => number,
-              theNewsAlerts: string[]) {
+              theNewsAlerts: string[],
+            ) {
+    
     this.id = theId;
     this.updateTime = theUpdateTime;
     this.updateTemp = theUpdateTemp;
@@ -34,12 +25,24 @@ export class State {
     this.updateFunc = theUpdateFunc;
     this.newsAlerts = theNewsAlerts;
     
-    this.lastUpdateTime = timeElapsed;
+    this.lastUpdateTime = -1;
   }
   
   public update() {
+    const [
+      timeElapsed,
+      setTimeElapsed,
+      globalTemperature,
+      setGlobalTemperature,
+      money,
+      setMoney,
+      publicOpinion,
+      setPublicOpinion
+    ] = useGameState();
+    
     let theLastUpdateTime = this.lastUpdateTime;
     this.lastUpdateTime = timeElapsed;
+    if (theLastUpdateTime < 0) theLastUpdateTime = this.lastUpdateTime;
     console.log("increase the temperature by this much: " + this.updateTemp);
     setGlobalTemperature(globalTemperature + this.updateTemp);
     console.log("increase the opinion by this much: " + this.updateOpinion);

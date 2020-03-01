@@ -54,11 +54,29 @@ function App() {
     setTiming(timing => timing === 49 ? timing = 0 : timing + 1);
   }
 
+  const continentTemps = {
+    "Europe": 0,
+    "Asia": 0.5,
+    "Oceania": 1.0,
+    "Africa": 1.4,
+    "South America": 1.8,
+    "North America": 2.4,
+  }
+
   return (
     <div className="App">
       Big Foil
-      <Map displayMarker={(timing > 20) ? true : false} />
-
+      <Map continentTemps={continentTemps} displayMarker={(timing > 20) ? true : false} />
+      <div>
+        Your resources:
+        <ul>
+          {scenarios.map((scenario: Scenario) =>
+            <li>
+              {scenario.name}
+            </li>
+          )}
+        </ul>
+      </div>
       <span>Moneys: {money}</span>
       <div>{`Date: ${timeElapsed}`}</div>
       <div>{`Temperature: ${globalTemperature}`}</div>

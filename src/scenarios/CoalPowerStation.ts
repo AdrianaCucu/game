@@ -1,4 +1,4 @@
-import { State } from "./state";
+import { State } from "./State";
 import { Scenario } from "./Scenario";
 
 export class CoalPowerStation extends Scenario {

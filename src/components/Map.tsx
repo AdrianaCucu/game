@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 
+import { useScenarios } from '../hooks/useScenarios';
+import { CoalPowerStation } from '../scenarios/CoalPowerStation';
+import { Scenario } from '../scenarios/Scenario';
+
 const geoUrl =
   "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json";
 
@@ -16,19 +20,23 @@ interface Marker {
   coordinates: [number, number]
 };
 
+const Map = ({ displayMarker }: { displayMarker: boolean }) => {
 
-let markers: Array<Marker> = [{
-  markerOffset: -30,
-  name: "Buenos Aires",
-  coordinates: [-58.3816, -34.6037]
-}];
+  const [scenarios, setScenarios] = useScenarios();
 
-const Map = ({displayMarker}: {displayMarker: boolean}) => {
-  // console.log("hello");
+  let scenario: Scenario = new CoalPowerStation();
 
-  let handleClick = (geo: any) => () => {
-    console.log(geo.properties.continent);
-  };
+  let markers: Array<Marker> = [{
+    markerOffset: -30,
+    name: scenario ? scenario.name : "",
+    coordinates: [-58.3816, -34.6037]
+  }];
+
+  function createScenario() {
+    console.log(scenario)
+    setScenarios((scenarios: Scenario[]) => [...scenarios, scenario]);
+    console.log(scenarios);
+  }
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -39,7 +47,6 @@ const Map = ({displayMarker}: {displayMarker: boolean}) => {
               geographies.map(geo => (
                 <Geography
                   key={geo.rsmKey}
-                  onClick={handleClick(geo)}
                   geography={geo}
                   style={{
                     default: {
@@ -68,7 +75,7 @@ const Map = ({displayMarker}: {displayMarker: boolean}) => {
 
           {(displayMarker === true) ?
             markers.map(({ name, coordinates, markerOffset }) => (
-              <Marker coordinates={coordinates}>
+              <Marker onClick={createScenario} coordinates={coordinates}>
                 <g
                   fill="red"
                   stroke="black"
@@ -92,6 +99,17 @@ const Map = ({displayMarker}: {displayMarker: boolean}) => {
             : ""}
         </ComposableMap>
       </StyledMap>
+
+      <div>
+        Your resources:
+        <ul>
+          {scenarios.map((scenario: Scenario) =>
+            <li>
+              {scenario.name}
+            </li>
+          )}
+        </ul>
+      </div>
     </div>
   );
 };

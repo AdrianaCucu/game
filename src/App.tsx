@@ -119,6 +119,7 @@ function App() {
 
   function createScenario() {
     setScenarios((scenarios: Scenario[]) => [...scenarios, scenario]);
+    setTiming(0);
   }
 
   return (
@@ -147,15 +148,15 @@ function App() {
                           outline: "none"
                         },
                         hover: {
-                          fill: "gray",
-                          stroke: "black",
-                          strokeWidth: 1.0,
+                          fill: `${color}`,
+                          stroke: "#607D8B",
+                          strokeWidth: 0.75,
                           outline: "none"
                         },
                         pressed: {
-                          fill: "gray",
-                          stroke: "black",
-                          strokeWidth: 1.25,
+                          fill: `${color}`,
+                          stroke: "#607D8B",
+                          strokeWidth: 0.75,
                           outline: "none"
                         }
                       }}
@@ -167,7 +168,7 @@ function App() {
 
             {(timing > 40) ?
               markers.map(({ name, coordinates, markerOffset }) => (
-                <Marker onClick={createScenario} coordinates={coordinates}>
+                <Marker onMouseDown={createScenario} coordinates={coordinates}>
                   <g
                     fill="red"
                     stroke="black"

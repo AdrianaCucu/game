@@ -27,6 +27,8 @@ let TICK_INTERVAL: number | null = null; // 100 milliseconds
 
 function App() {
   const [
+    date,
+    setDate,
     timeElapsed,
     setTimeElapsed,
     globalTemperature,
@@ -52,8 +54,10 @@ function App() {
   console.log("re-render");
 
   const startGame = () => {
+    let now = Date.now();
+
     TICK_INTERVAL = 100;
-    setTimeElapsed(0.0);
+    setTimeElapsed(now);
     setMoney(1000000.0);
     setGlobalTemperature(0.0);
     setPublicOpinion(0.0);
@@ -92,6 +96,11 @@ function App() {
     setGlobalTemperature(globalTemperature => globalTemperature + globalTempChange);
     setMoney(money => money + moneyChange);
     setPublicOpinion(publicOpinion => publicOpinion + publicOpinionChange);
+
+    let today = new Date(date);
+    let next = new Date();
+    next.setTime(today.getTime() + 86400000);
+    setDate(next.toString());
 
     if (globalTemperature >= 100) TICK_INTERVAL = 999999999;
   }
@@ -216,13 +225,13 @@ function App() {
         <div style={{ width: "40vw" }}>
           <span>Money: {money}</span>
           <br />
-          <div>{`Date: ${timeElapsed}`}</div>
+          <div>{`Date: ${date}`}</div>
           <br />
         </div>
       </div>
 
       {
-        globalTemperature >= 100 ? <Win duration={timeElapsed} /> : ""
+        globalTemperature >= 100 ? <Win duration={date} /> : ""
       }
 
     </div>

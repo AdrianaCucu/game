@@ -43,7 +43,6 @@ function App() {
     setPublicOpinion(0);
   }
 
-
   return (
     <div className="App">
       Big Foil
@@ -51,7 +50,9 @@ function App() {
       <span>Moneys: {money}</span>
       <div>{`Date: ${timeElapsed}`}</div>
       <div>{`Temperature: ${globalTemperature}`}</div>
-      <button onClick={startGame}>start</button>
+      {(timeElapsed === 0) ?
+        <button onClick={startGame}>start</button> : ""
+      }
     </div>
   );
 }

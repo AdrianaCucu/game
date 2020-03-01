@@ -1,7 +1,20 @@
+import { useGameState } from './hooks/useGameState';
+
+const [
+  timeElapsed,
+  setTimeElapsed,
+  globalTemperature,
+  setGlobalTemperature,
+  money,
+  setMoney,
+  publicOpinion,
+  setPublicOpinion
+] = useGameState();
+
 export class State {
   public id: number;
   public updateTime: number;
-  public updatePollution: number;
+  public updateTemp: number;
   public updateOpinion: number;
   public updateFunc: () => number;
   public newsAlerts: string[];
@@ -10,25 +23,27 @@ export class State {
   
   constructor(theId: number,
               theUpdateTime: number,
-              theUpdatePollution: number,
+              theUpdateTemp: number,
               theUpdateOpinion: number,
               theUpdateFunc: () => number,
               theNewsAlerts: string[]) {
     this.id = theId;
     this.updateTime = theUpdateTime;
-    this.updatePollution = theUpdatePollution;
+    this.updateTemp = theUpdateTemp;
     this.updateOpinion = theUpdateOpinion;
     this.updateFunc = theUpdateFunc;
     this.newsAlerts = theNewsAlerts;
     
-    this.lastUpdateTime = 10; //TODO: update from global state getCurrentTime()
+    this.lastUpdateTime = timeElapsed;
   }
   
   public update() {
     let theLastUpdateTime = this.lastUpdateTime;
-    this.lastUpdateTime = 10; //TODO: update from global state getCurrentTime()
-    console.log("increase the pollution by this much: " + this.updatePollution);
+    this.lastUpdateTime = timeElapsed;
+    console.log("increase the temperature by this much: " + this.updateTemp);
+    setGlobalTemperature(globalTemperature + this.updateTemp);
     console.log("increase the opinion by this much: " + this.updateOpinion);
+    setPublicOpinion(publicOpinion + this.updateOpinion);
     if (this.lastUpdateTime - theLastUpdateTime > this.updateTime) {
       return this.updateFunc();
     }

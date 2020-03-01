@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 
+import { useScenarios } from '../hooks/useScenarios';
+import { CoalPowerStation } from '../scenarios/CoalPowerStation';
+import { Scenario } from '../scenarios/Scenario';
+
 const geoUrl =
   "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json";
 
@@ -10,25 +14,69 @@ const StyledMap = styled.div`
   height: auto;
 `;
 
+interface ContinentTemps {
+  [key: string]: number;
+}
+
+const COLORS = {
+  darkBlue: "#124e89",
+  lightBlue: "#ADF3FF",
+  lightOrange: "#F29F81",
+  orange: "#FF8B42",
+  lightRed: "#be4a2f",
+  red: "#a22633",
+  darkRed: "#3e2731",
+  gray: "gray"
+}
+
+function tempToColor(continentTemps: ContinentTemps, continent: string): String {
+  if (continentTemps[continent] != null) {
+    const temp = continentTemps[continent];
+
+    if (temp <= 0.0) {
+      return COLORS.darkBlue;
+    } else if (temp > 0 && temp <= 0.6) {
+      return COLORS.lightBlue;
+    } else if (temp > 0.6 && temp <= 1.0) {
+      return COLORS.lightOrange;
+    } else if (temp > 1.0 && temp <= 1.4) {
+      return COLORS.orange;
+    } else if (temp > 1.4 && temp <= 1.8) {
+      return COLORS.lightRed;
+    } else if (temp > 1.8 && temp <= 2.4) {
+      return COLORS.red;
+    } else if (temp > 2.4 && temp <= 3.0) {
+      return COLORS.darkRed;
+    } else {
+      return COLORS.gray;
+    }
+  }
+  return COLORS.gray;
+}
+
 interface Marker {
   markerOffset: number;
   name: String;
   coordinates: [number, number]
 };
 
+const Map = ({ continentTemps, displayMarker }: { continentTemps: ContinentTemps, displayMarker: boolean }) => {
 
-let markers: Array<Marker> = [{
-  markerOffset: -30,
-  name: "Buenos Aires",
-  coordinates: [-58.3816, -34.6037]
-}];
+  const [scenarios, setScenarios] = useScenarios();
 
-const Map = ({displayMarker}: {displayMarker: boolean}) => {
-  // console.log("hello");
+  let scenario: Scenario = new CoalPowerStation();
 
-  let handleClick = (geo: any) => () => {
-    console.log(geo.properties.continent);
-  };
+  let markers: Array<Marker> = [{
+    markerOffset: -30,
+    name: scenario ? scenario.name : "",
+    coordinates: [-58.3816, -34.6037]
+  }];
+
+  function createScenario() {
+    console.log(scenario)
+    setScenarios((scenarios: Scenario[]) => [...scenarios, scenario]);
+    console.log(scenarios);
+  }
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -36,39 +84,42 @@ const Map = ({displayMarker}: {displayMarker: boolean}) => {
         <ComposableMap>
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
-              geographies.map(geo => (
-                <Geography
-                  key={geo.rsmKey}
-                  onClick={handleClick(geo)}
-                  geography={geo}
-                  style={{
-                    default: {
-                      fill: "green",
-                      stroke: "#607D8B",
-                      strokeWidth: 0.75,
-                      outline: "none"
-                    },
-                    hover: {
-                      fill: "green",
-                      stroke: "black",
-                      strokeWidth: 1.25,
-                      outline: "none"
-                    },
-                    pressed: {
-                      fill: "green",
-                      stroke: "black",
-                      strokeWidth: 1.25,
-                      outline: "none"
-                    }
-                  }}
-                />
-              ))
+              geographies.map(geo => {
+                const color = geo.properties.continent ? tempToColor(continentTemps, geo.properties.continent) : "gray";
+
+                return (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    style={{
+                      default: {
+                        fill: `${color}`,
+                        stroke: "#607D8B",
+                        strokeWidth: 0.75,
+                        outline: "none"
+                      },
+                      hover: {
+                        fill: "gray",
+                        stroke: "black",
+                        strokeWidth: 1.0,
+                        outline: "none"
+                      },
+                      pressed: {
+                        fill: "gray",
+                        stroke: "black",
+                        strokeWidth: 1.25,
+                        outline: "none"
+                      }
+                    }}
+                  />
+                )
+              })
             }
           </Geographies>
 
           {(displayMarker === true) ?
             markers.map(({ name, coordinates, markerOffset }) => (
-              <Marker coordinates={coordinates}>
+              <Marker onClick={createScenario} coordinates={coordinates}>
                 <g
                   fill="red"
                   stroke="black"
@@ -92,6 +143,17 @@ const Map = ({displayMarker}: {displayMarker: boolean}) => {
             : ""}
         </ComposableMap>
       </StyledMap>
+
+      <div>
+        Your resources:
+        <ul>
+          {scenarios.map((scenario: Scenario) =>
+            <li>
+              {scenario.name}
+            </li>
+          )}
+        </ul>
+      </div>
     </div>
   );
 };

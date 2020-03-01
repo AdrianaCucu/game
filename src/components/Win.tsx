@@ -26,8 +26,8 @@ const Win = ({ duration }: { duration: string }) => {
     return (
         <StyledWin>
             <div>
-                <p>You destroyed the world on {duration}</p>
-                <button className="button"  onClick={playAgain}>Play Again</button>
+                <p>{duration}</p>
+                <button className="button" onClick={playAgain}>Play Again</button>
             </div>
         </StyledWin>
     );

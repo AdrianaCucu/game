@@ -102,7 +102,7 @@ function App() {
     next.setTime(today.getTime() + 86400000);
     setDate(next.toString());
 
-    if (globalTemperature >= 100) TICK_INTERVAL = 999999999;
+    if (globalTemperature >= 100 || publicOpinion >= 100 || money < -250000) TICK_INTERVAL = 999999999;
   }
 
   function createButton() {
@@ -113,7 +113,7 @@ function App() {
       setSelectedContinent(Continent.getRandom());
     }
   }
-  
+
 
   // Randomly choose between scenarios for a continent
   const possibleScenarios = getAllScenarios(selectedContinent);
@@ -233,7 +233,15 @@ function App() {
       </div>
 
       {
-        globalTemperature >= 100 ? <Win duration={date} /> : ""
+        globalTemperature >= 100 ? <Win duration={`You destroyed the world on ${date}`} /> : ""
+      }
+
+      {
+        publicOpinion >= 100 ? <Win duration={`The public ruined your plan on ${date}`} /> : ""
+      }
+
+      {
+        money < -250000 ? <Win duration={"You have too much debt. Game over."} /> : ""
       }
 
     </div>

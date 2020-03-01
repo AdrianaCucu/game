@@ -17,20 +17,16 @@ const StyledWin = styled.div`
     transition-timing-function: ease-in;
 `;
 
-const Win = ({ duration }: { duration: number }) => {
+const Win = ({ duration }: { duration: string }) => {
 
     function playAgain() {
         window.location.reload(false);
     }
 
-    function getDuration() {
-        return duration;
-    }
-
     return (
         <StyledWin>
             <div>
-                <p>You destroyed the world in {getDuration}</p>
+                <p>You destroyed the world on {duration}</p>
                 <button className="button"  onClick={playAgain}>Play Again</button>
             </div>
         </StyledWin>

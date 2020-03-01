@@ -135,7 +135,7 @@ function App() {
 
   return (
     <div className="App">
-      Big Foil
+      Everything Burns
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div id="opinion">
           <div id="opinionBar" style={{ height: `${publicOpinion}%`, color: "black" }}>Public opinion: {publicOpinion.toFixed(2)}%</div>

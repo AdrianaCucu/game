@@ -3,8 +3,11 @@ import { useGameState } from '../hooks/useGameState';
 export class State {
   public id: number;
   public updateTime: number;
+  
   public updateTemp: number;
   public updateOpinion: number;
+  public updateMoney: number;
+  
   public updateFunc: () => number;
   public newsAlerts: string[];
   
@@ -14,6 +17,7 @@ export class State {
               theUpdateTime: number,
               theUpdateTemp: number,
               theUpdateOpinion: number,
+              theUpdateMoney: number,
               theUpdateFunc: () => number,
               theNewsAlerts: string[],
             ) {
@@ -22,34 +26,22 @@ export class State {
     this.updateTime = theUpdateTime;
     this.updateTemp = theUpdateTemp;
     this.updateOpinion = theUpdateOpinion;
+    this.updateMoney = theUpdateMoney;
     this.updateFunc = theUpdateFunc;
     this.newsAlerts = theNewsAlerts;
     
     this.lastUpdateTime = -1;
   }
   
-  public update() {
-    const [
-      timeElapsed,
-      setTimeElapsed,
-      globalTemperature,
-      setGlobalTemperature,
-      money,
-      setMoney,
-      publicOpinion,
-      setPublicOpinion
-    ] = useGameState();
+  public update(timeElapsed: number, globalTemperature: number, publicOpinion: number, money: number) : [number, number, number, number] {
     
     let theLastUpdateTime = this.lastUpdateTime;
     this.lastUpdateTime = timeElapsed;
     if (theLastUpdateTime < 0) theLastUpdateTime = this.lastUpdateTime;
-    console.log("increase the temperature by this much: " + this.updateTemp);
-    setGlobalTemperature(globalTemperature + this.updateTemp);
-    console.log("increase the opinion by this much: " + this.updateOpinion);
-    setPublicOpinion(publicOpinion + this.updateOpinion);
+    let newId = this.id;
     if (this.lastUpdateTime - theLastUpdateTime > this.updateTime) {
-      return this.updateFunc();
+      let newId = this.updateFunc();
     }
-    return this.id;
+    return [newId, this.updateTemp, this.updateOpinion, this.updateMoney];
   }
 }

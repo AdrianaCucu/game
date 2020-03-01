@@ -15,8 +15,9 @@ export class CoalPowerStation extends Scenario {
     new State(
       0, // this state has an ID of 0
       100, // this state should update every 100 time units
-      5, // increase the pollution level by 5 on each update
+      5, // increase the temperature by 5 on each update
       5, // increase the public opinion by 5 on each update
+      5, // increase the money by 5 on each update
       this.coalPowerStationStateUpdateFunc, // run this to determine the new state
       ["SAMPLE TWEET FROM POWER STATION"] // tweets from the power station
     )

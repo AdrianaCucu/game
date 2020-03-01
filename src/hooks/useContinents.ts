@@ -2,12 +2,12 @@ import { useState } from "react";
 
 export const useContinents = () => {
   const [temperature, setTemperature] = useState({
-    europe: 0,
-    nAmerica: 0,
-    sAmerica: 0,
-    asia: 0,
-    oceania: 0,
-    africa: 0
+    "Europe": 0,
+    "Asia": 0,
+    "Oceania": 0,
+    "Africa": 0,
+    "South America": 0,
+    "North America": 0,
   });
 
   return [temperature, setTemperature] as const;

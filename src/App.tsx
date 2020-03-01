@@ -37,7 +37,7 @@ function App() {
     setPublicOpinion
   ] = useGameState();
 
-  const [temp, setContinentTemps] = useContinents();
+  const [continentTemps, setContinentTemps] = useContinents();
   const [
     scenarios,
     setScenarios,
@@ -59,12 +59,12 @@ function App() {
     setPublicOpinion(0.0);
     setTiming(0);
     setContinentTemps({
-      europe: 0,
-      nAmerica: 0,
-      sAmerica: 0,
-      asia: 0,
-      oceania: 0,
-      africa: 0
+      "Europe": 1.4,
+      "Asia": 1.8,
+      "Oceania": 1.8,
+      "Africa": 1.0,
+      "South America": 1.4,
+      "North America": 1.8
     })
 
     console.log(money);
@@ -97,7 +97,6 @@ function App() {
   }
 
   function createButton() {
-    console.log(scenarios)
     setTiming(timing => timing === 59 ? timing = 0 : timing + 1);
     if (timing === 40) {
       let index = getRandomInt(0, 1);
@@ -106,20 +105,9 @@ function App() {
     }
   }
 
-  const continentTemps = {
-    "Europe": 2.5,
-    "Asia": 1.5,
-    "Oceania": 1.0,
-    "Africa": 1.4,
-    "South America": 1.8,
-    "North America": 2.4,
-  }
-
   // Randomly choose between scenarios for a continent
   const possibleScenarios = getAllScenarios(selectedContinent);
   let scenario: Scenario = possibleScenarios[selectedScenario];
-
-  console.log(scenario)
 
   let markers: Array<CustomMarker> = [
     {

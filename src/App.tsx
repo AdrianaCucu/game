@@ -9,6 +9,7 @@ import { useGameState } from './hooks/useGameState';
 import { useScenarios } from './hooks/useScenarios';
 import { CoalPowerStation } from './scenarios/CoalPowerStation';
 import { Scenario } from './scenarios/Scenario';
+import { europe, asia, oceania, nAmerica, africa, sAmerica } from './models/Continent';
 
 import Win from './components/Win';
 
@@ -139,11 +140,13 @@ function App() {
   // Should have the computer randomly choose between scenarios.
   let scenario: Scenario = new CoalPowerStation();
 
-  let markers: Array<Marker> = [{
-    markerOffset: -30,
-    name: scenario ? scenario.name : "",
-    coordinates: [10, 10]
-  }];
+  let markers: Array<Marker> = [
+    {
+      markerOffset: -30,
+      name: scenario ? scenario.name : "",
+      coordinates: africa.coordinates
+    },
+  ];
 
   function createScenario() {
     setScenarios((scenarios: Scenario[]) => [...scenarios, scenario]);
@@ -190,7 +193,7 @@ function App() {
               }
             </Geographies>
 
-            {(timing > 20) ?
+            {(timing === 0) ?
               markers.map(({ name, coordinates, markerOffset }) => (
                 <Marker onClick={createScenario} coordinates={coordinates}>
                   <g
